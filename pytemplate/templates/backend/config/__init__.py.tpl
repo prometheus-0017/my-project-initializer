@@ -1,32 +1,27 @@
 """配置加载入口:按运行模式加载对应的独立配置文件。"""
 
-from __future__ import annotations
-
-from collections.abc import Callable
-from typing import Final
+from types import ModuleType
 
 from . import dev, release
-from .base import AppConfig
 
 
 class ConfigError(ValueError):
     """配置加载失败。"""
 
 
-_BUILDERS: Final[dict[str, Callable[[], AppConfig]]] = {
-    "dev": dev.build_config,
-    "release": release.build_config,
+_MODULES: dict[str, ModuleType] = {
+    "dev": dev,
+    "release": release,
 }
 
 
-def load_config(mode: str) -> AppConfig:
+def load_config(mode: str) -> ModuleType:
     """按运行模式加载配置。
 
     Raises:
         ConfigError: mode 不是 dev / release。
     """
     try:
-        builder = _BUILDERS[mode]
+        return _MODULES[mode]
     except KeyError as exc:
-        raise ConfigError(f"未知运行模式: {mode!r}(仅支持: {sorted(_BUILDERS)})") from exc
-    return builder()
+        raise ConfigError(f"未知运行模式: {mode!r}(仅支持: {sorted(_MODULES)})") from exc

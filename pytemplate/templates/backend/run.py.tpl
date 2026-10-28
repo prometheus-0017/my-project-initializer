@@ -16,10 +16,11 @@ from collections.abc import Sequence
 
 import waitress
 
+from types import ModuleType
+
 from app import create_app
 from app.ws import run_ws_server
 from config import ConfigError, load_config
-from config.base import AppConfig
 
 
 def _start_ws_server(host: str, port: int) -> threading.Thread:
@@ -33,7 +34,7 @@ def _start_ws_server(host: str, port: int) -> threading.Thread:
     return thread
 
 
-def _serve_http(config: AppConfig) -> None:
+def _serve_http(config: ModuleType) -> None:
     """按模式选择 HTTP 服务器并阻塞运行。"""
     app = create_app(config)
     if config.mode == "dev":

@@ -5,16 +5,17 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Final
 
+from types import ModuleType
+
 from flask import Flask, jsonify, send_from_directory
 
-from config.base import AppConfig
 from .routes import api_bp
 {{DB_IMPORT}}
 
 _STATIC_DIR: Final[Path] = Path(__file__).resolve().parent.parent / "static"
 
 
-def create_app(config: AppConfig) -> Flask:
+def create_app(config: ModuleType) -> Flask:
     """创建并装配 Flask 应用实例。"""
     app = Flask(
         __name__,
