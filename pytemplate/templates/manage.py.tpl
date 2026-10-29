@@ -52,7 +52,7 @@ def _run(command: Sequence[str], cwd: Path) -> None:
 def command_dev(_args: argparse.Namespace) -> None:
     """并发启动前端与后端开发服务,任一退出或 Ctrl+C 时统一收尾。"""
     _ensure_pnpm()
-    backend = subprocess.Popen([sys.executable, "run.py", "dev"], cwd=BACKEND_DIR)
+    backend = subprocess.Popen([sys.executable, "main.py", "dev"], cwd=BACKEND_DIR)
     frontend = subprocess.Popen(["pnpm", "dev"], cwd=FRONTEND_DIR)
     try:
         while backend.poll() is None and frontend.poll() is None:
@@ -104,7 +104,7 @@ def command_coverage(_args: argparse.Namespace) -> None:
 
 def command_release(_args: argparse.Namespace) -> None:
     """以 release 模式启动后端(waitress + ws rpc)。"""
-    _run([sys.executable, "run.py", "release"], BACKEND_DIR)
+    _run([sys.executable, "main.py", "release"], BACKEND_DIR)
 
 
 def build_parser() -> argparse.ArgumentParser:

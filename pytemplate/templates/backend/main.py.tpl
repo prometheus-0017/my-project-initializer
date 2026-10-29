@@ -1,8 +1,8 @@
 """后端启动入口。
 
 用法:
-    python run.py dev      # 开发模式:flask 内置服务器 + ws rpc
-    python run.py release  # 部署模式:waitress + ws rpc
+    python main.py dev      # 开发模式:flask 内置服务器 + ws rpc
+    python main.py release  # 部署模式:waitress + ws rpc
 
 两种模式均会先在守护线程中启动 WebSocket RPC 服务,再启动 HTTP 服务。
 """

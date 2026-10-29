@@ -15,7 +15,7 @@
 │   ├── vite.config.ts   # dev 端口 / 代理 / external 构建
 │   └── package.json
 └── backend/             # Flask + Waitress + WebSocket RPC
-    ├── run.py           # 后端启动入口(dev / release)
+    ├── main.py           # 后端启动入口(dev / release)
     ├── config/          # 独立配置文件(dev.py / release.py)
     ├── app/             # 应用代码(HTTP 路由 + WS RPC)
     ├── static/          # 前端构建产物复制目标
@@ -50,6 +50,6 @@
 
 ## 说明
 
-- 后端配置位于 `backend/config`,`dev.py` 与 `release.py` 为两套独立配置文件,由 `python run.py <mode>` 选择加载。
+- 后端配置位于 `backend/config`,`dev.py` 与 `release.py` 为两套独立配置文件,由 `python main.py <mode>` 选择加载。
 - WebSocket RPC 基于 [xuri-rpc-websocket](https://pypi.org/project/xuri-rpc-websocket/)(CBOR 二进制协议),后端暴露方法见 `backend/app/ws.py`,前端通道封装见 `frontend/src/api/ws.ts`。
 - `build-external` 产物不包含 vue / element-plus 代码,通过 import map 指向 CDN;部署到新环境时可替换为本地库文件地址。
